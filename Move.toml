@@ -1,0 +1,10 @@
+[package]
+name = "OmniRWA"
+version = "0.0.1"
+
+[dependencies]
+# Waxaad halkan ku xidhi kartaa Move Framework-ka BNB ama Sui
+MoveStdlib = { git = "https://github.com/move-language/move.git", subdir = "language/move-stdlib", rev = "main" }
+
+[addresses]
+OmniRWA = "0x1" # Halkan waxaa geli doona address-kaaga dhabta ah hadhow
