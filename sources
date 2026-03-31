@@ -1,0 +1,43 @@
+module OmniRWA::AssetEngine {
+    use std::string::{String};
+    use std::signer;
+
+    /// Qeexidda Hantida (RWA Asset Object)
+    struct PhysicalAsset has key, store {
+        id: u64,
+        name: String,
+        valuation: u64,
+        is_compliant: bool,
+    }
+
+    /// Dhacdada marka hanti cusub la abuuro
+    struct AssetMinted has copy, drop {
+        asset_id: u64,
+        owner: address,
+    }
+
+    /// Function-ka lagu abuuro (Mint) hanti cusub
+    public entry fun mint_asset(
+        account: &signer, 
+        id: u64, 
+        name: String, 
+        valuation: u64
+    ) {
+        let asset = PhysicalAsset {
+            id,
+            name,
+            valuation,
+            is_compliant: true, // Compliance-as-Code logic
+        };
+
+        let owner_addr = signer::address_of(account);
+        
+        // Hantida waxaa lagu kaydinayaa cinwaanka qofka leh
+        move_to(account, asset);
+    }
+
+    /// Function lagu hubiyo haddii hantidu tahay mid sharci ah (Compliance Check)
+    public fun check_compliance(asset: &PhysicalAsset): bool {
+        asset.is_compliant
+    }
+}
